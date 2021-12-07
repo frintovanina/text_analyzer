@@ -152,7 +152,6 @@ for l in words_len:
 
 # vypis sloupcoveho grafu
 print(SEPARATOR)
-#f"| POTRAVINA: {potravina: <10}| CENA: {potraviny[potravina][0]: <3}|".center(len(SEPARATOR))
 print(f'LEN | {"OCCURENCES":<17} | NR.'.ljust(len(SEPARATOR)))
 
 for index in sorted_lens:
