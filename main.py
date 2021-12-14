@@ -1,4 +1,4 @@
-# Vstupni promenne
+# vstupni promenne
 SEPARATOR = "=" * 40
 USERS = {
     "bob": {"123"},
@@ -36,7 +36,7 @@ in modern oceans. Other fish such as paddlefish,
 garpike and stingray are also present.'''
 ]
 
-# Prihlaseni, kontrola uzivatelskeho vstupu a registrace, uvitani
+#prihlaseni, kontrola uzivatelskeho vstupu a registrace, uvitani
 user = input("USER:")
 password = input("PASSWORD:")
 
@@ -53,7 +53,7 @@ else:
     print(SEPARATOR)
     print("We have " + str(len(TEXTS)) + " texts to be analyzed.")
 
-#Vyber textu, overeni vstupu
+#vyber textu, overeni vstupu
 text_choice = (input("Enter a number between 1 and 3 to choose your text: "))
 
 if text_choice.isnumeric():
@@ -68,15 +68,17 @@ else:
     print("Next time enter a number! Ending program")
     quit()
 
-#rozdělení textu na slova včetně mezer a teček
+#rozdělení na slova, odstranění teček a mezer
 cleaned_words = []
+chars_to_clean = ",.:;[]?!"
 
-# odstranění teček a mezer + převedení na malá písmena
 for word in text_index.split():
-    cleaned_word = word.strip(",.:;'")
-    cleaned_words.append(cleaned_word)
+    if word in chars_to_clean:
+        text_index.strip(word)
+    else:
+        cleaned_words.append(word.strip(",.:;[]?!"))
 
-# pocet slov v textu
+#pocet slov v textu
 words_count = 0
 
 for word in cleaned_words:
@@ -85,6 +87,7 @@ print (f"There are {words_count} words in the selected text.")
 
 #pocet slov zacinajicich velkym pismenem
 words_titlecase = 0
+
 for word in cleaned_words:
     if word.istitle():
         words_titlecase +=1
@@ -92,6 +95,7 @@ print(f"There are {words_titlecase} titlecase words.")
 
 #pocet slov psanych velkymi pismeny
 words_uppercase = 0
+
 for word in cleaned_words:
     if word.isupper():
         words_uppercase +=1
@@ -104,17 +108,20 @@ else:
 
 #pocet slov psanych malymi pismeny
 words_lowercase = 0
+
 for word in cleaned_words:
     if word.islower():
         words_lowercase +=1
 print(f"There are {words_lowercase} lowercase words.")
 
-#pocet slov psanych malymi pismeny
+#pocet ciselnych retezcu v textu
 nums=0
+
 for word in cleaned_words:
     if word.isnumeric():
         nums +=1
 
+#mnozne cislo ve vypisu
 if nums == 1:
     print(f"There is {nums} numeric string.")
 else:
@@ -122,13 +129,12 @@ else:
 
 #suma cisel obsazenych v textu
 nums_list = []
-nums_sum = 0
+
 for word in cleaned_words:
     if word.isnumeric():
-        nums_list.append(word)
-        for num in nums_list:
-            nums_sum+=int(num)
-print(f"The sum of all the numbers is {nums_sum}.")
+        nums_list.append(int(word))
+
+print(f"The sum of all the numbers is {sum(nums_list)}.")
 
 #cetnost jednotlivych delek slov
 len_occur = {}
@@ -150,7 +156,7 @@ for l in words_len:
     else:
             sorted_lens.append(l)
 
-# vypis sloupcoveho grafu
+#vypis sloupcoveho grafu
 print(SEPARATOR)
 print(f'LEN | {"OCCURENCES":<17} | NR.'.ljust(len(SEPARATOR)))
 
